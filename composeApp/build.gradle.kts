@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
+//    alias(libs.plugins.room)
 }
 
 kotlin {
@@ -26,6 +27,7 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
+            linkerOpts.add("-lsqlite3")
         }
     }
     
@@ -54,14 +56,15 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.lifecycle.viewmodel)
 
-            implementation(libs.sqldelight.runtime)
-            implementation(libs.sqldelight.coroutines.extensions)
+//            implementation(libs.room.runtime)
+//            implementation(libs.room.ktx)
+//            implementation(libs.sqlite.bundled)
+
             implementation(libs.kotlin.date.time)
         }
 
         iosMain.dependencies {
             implementation(libs.ktor.ios)
-            implementation(libs.sqldelight.native.driver)
         }
 
         androidMain.dependencies {
@@ -72,8 +75,6 @@ kotlin {
 
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
-
-            implementation(libs.sqldelight.android.driver)
         }
     }
 }
@@ -115,3 +116,10 @@ android {
     }
 }
 
+//room {
+//    schemaDirectory("$projectDir/schemas")
+//}
+//
+//dependencies {
+//    ksp(libs.room.compiler)
+//}
