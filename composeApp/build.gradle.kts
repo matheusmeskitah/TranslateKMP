@@ -9,7 +9,7 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlinx.serialization)
-//    alias(libs.plugins.room)
+    alias(libs.plugins.room)
 }
 
 kotlin {
@@ -57,9 +57,8 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.lifecycle.viewmodel)
 
-//            implementation(libs.room.runtime)
-//            implementation(libs.room.ktx)
-//            implementation(libs.sqlite.bundled)
+            implementation(libs.room.runtime)
+            implementation(libs.sqlite.bundled)
 
             implementation(libs.kotlin.date.time)
         }
@@ -117,10 +116,10 @@ android {
     }
 }
 
-//room {
-//    schemaDirectory("$projectDir/schemas")
-//}
-//
-//dependencies {
-//    ksp(libs.room.compiler)
-//}
+room {
+    schemaDirectory("$projectDir/schemas")
+}
+
+dependencies {
+    ksp(libs.room.compiler)
+}
