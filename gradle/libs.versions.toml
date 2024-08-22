@@ -1,5 +1,5 @@
 [versions]
-agp = "8.5.1"
+agp = "8.5.2"
 kotlin = "2.0.0"
 ksp = "2.0.0-1.0.23"
 junit = "4.13.2"
@@ -9,7 +9,7 @@ android-targetSdk = "34"
 androidx-activityCompose = "1.9.1"
 androidx-espresso-core = "3.6.1"
 androidx-test-junit = "1.2.1"
-testRunner = "1.6.1"
+testRunner = "1.6.2"
 ktor = "3.0.0-wasm2"
 compose-plugin = "1.6.11"
 coil = "3.0.0-alpha06"
@@ -18,8 +18,7 @@ kotlinDateTime = "0.6.0"
 koin = "3.6.0-Beta4"
 koinComposeMultiplatform = "1.2.0-Beta4"
 lifecycleViewModel = "2.8.4"
-room = "2.7.0-alpha05"
-sqlite = "2.5.0-SNAPSHOT"
+database = "1.1.1"
 assertK = "0.26.1"
 turbine = "0.7.0"
 rules = "1.6.1"
@@ -46,10 +45,10 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinComposeMultiplatform" }
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koinComposeMultiplatform" }
 
-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
-room-runtime-android = { group = "androidx.room", name = "room-runtime-android", version.ref = "room" }
-sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
+multiplatform-db-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "database" }
+multiplatform-db-no-arg = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "database" }
+multiplatform-db-serialization = { module = "com.russhwolf:multiplatform-settings-serialization", version.ref = "database" }
+multiplatform-db-coroutines = { module = "com.russhwolf:multiplatform-settings-coroutines", version.ref = "database" }
 
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
@@ -69,4 +68,3 @@ jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin"}
-room = { id = "androidx.room", version.ref = "room" }

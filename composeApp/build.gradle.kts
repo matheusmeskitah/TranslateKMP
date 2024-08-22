@@ -1,4 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -9,7 +8,6 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlinx.serialization)
-    alias(libs.plugins.room)
 }
 
 kotlin {
@@ -19,7 +17,7 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_17)
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -31,7 +29,7 @@ kotlin {
             linkerOpts.add("-lsqlite3")
         }
     }
-    
+
     sourceSets {
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -57,8 +55,10 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.lifecycle.viewmodel)
 
-            implementation(libs.room.runtime)
-            implementation(libs.sqlite.bundled)
+            implementation(libs.multiplatform.db.settings)
+            implementation(libs.multiplatform.db.no.arg)
+            implementation(libs.multiplatform.db.serialization)
+            implementation(libs.multiplatform.db.coroutines)
 
             implementation(libs.kotlin.date.time)
         }
@@ -70,7 +70,7 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
-            
+
             implementation(libs.ktor.android)
 
             implementation(libs.koin.android)
@@ -114,12 +114,4 @@ android {
     dependencies {
         debugImplementation(compose.uiTooling)
     }
-}
-
-room {
-    schemaDirectory("$projectDir/schemas")
-}
-
-dependencies {
-    ksp(libs.room.compiler)
 }
