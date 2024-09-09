@@ -1,8 +1,8 @@
 package translate.domain.history
 
-import core.domain.util.CommonFlow
+import kotlinx.coroutines.flow.Flow
 
 interface HistoryDataSource {
-    fun getHistory(): CommonFlow<List<HistoryItem>>
+    fun getHistory(): Flow<List<HistoryItem>>
     suspend fun insertHistoryItem(item: HistoryItem)
 }

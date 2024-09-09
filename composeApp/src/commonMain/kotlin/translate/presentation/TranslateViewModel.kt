@@ -2,8 +2,6 @@ package translate.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import core.domain.util.Resource
-import core.domain.util.toCommonStateFlow
 import core.presentation.UiLanguage
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -44,7 +42,6 @@ class TranslateViewModel(
         SharingStarted.WhileSubscribed(5000),
         TranslateState()
     )
-        .toCommonStateFlow()
 
     private var translateJob: Job? = null
 
@@ -177,28 +174,24 @@ class TranslateViewModel(
                     isTranslating = true
                 )
             }
-            val result = translateUseCase(
+
+            translateUseCase(
                 fromLanguage = state.fromLanguage.language,
                 fromText = state.fromText,
                 toLanguage = state.toLanguage.language
-            )
-            when (result) {
-                is Resource.Success -> {
-                    _state.update {
-                        it.copy(
-                            isTranslating = false,
-                            toText = result.data
-                        )
-                    }
+            ).onSuccess { result ->
+                _state.update {
+                    it.copy(
+                        isTranslating = false,
+                        toText = result
+                    )
                 }
-
-                is Resource.Error -> {
-                    _state.update {
-                        it.copy(
-                            isTranslating = false,
-                            error = (result.throwable as? TranslateException)?.error
-                        )
-                    }
+            }.onFailure { error ->
+                _state.update {
+                    it.copy(
+                        isTranslating = false,
+                        error = (error as? TranslateException)?.error
+                    )
                 }
             }
         }

@@ -1,7 +1,6 @@
 package translate.domain.use_case
 
 import core.domain.language.Language
-import core.domain.util.Resource
 import translate.domain.history.HistoryDataSource
 import translate.domain.history.HistoryItem
 import translate.domain.translate.TranslateClient
@@ -15,7 +14,7 @@ class TranslateUseCase(
         fromLanguage: Language,
         fromText: String,
         toLanguage: Language
-    ): Resource<String> {
+    ): Result<String> {
         return try {
             val translatedText = client.translate(fromLanguage, fromText, toLanguage)
 
@@ -28,10 +27,10 @@ class TranslateUseCase(
                 )
             )
 
-            Resource.Success(translatedText)
+            Result.success(translatedText)
         } catch (e: TranslateException) {
             e.printStackTrace()
-            Resource.Error(e)
+            Result.failure(e)
         }
     }
 }

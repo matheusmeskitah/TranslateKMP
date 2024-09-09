@@ -26,5 +26,5 @@ class MainActivity : ComponentActivity(), DIAware {
 @Preview
 @Composable
 fun AppAndroidPreview() {
-//    App()
+    App()
 }
