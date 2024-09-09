@@ -21,7 +21,6 @@ class TranslateUseCase(
 
             historyDataSource.insertHistoryItem(
                 HistoryItem(
-                    id = null,
                     fromLanguageCode = fromLanguage.langCode,
                     fromText = fromText,
                     toLanguageCode = toLanguage.langCode,

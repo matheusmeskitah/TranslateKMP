@@ -6,7 +6,7 @@ junit = "4.13.2"
 android-compileSdk = "34"
 android-minSdk = "24"
 android-targetSdk = "34"
-androidx-activityCompose = "1.9.1"
+androidx-activityCompose = "1.9.2"
 androidx-espresso-core = "3.6.1"
 androidx-test-junit = "1.2.1"
 testRunner = "1.6.2"
@@ -15,9 +15,8 @@ compose-plugin = "1.6.11"
 coil = "3.0.0-alpha06"
 navigationCompose = "2.7.0-alpha07"
 kotlinDateTime = "0.6.0"
-koin = "3.6.0-Beta4"
-koinComposeMultiplatform = "1.2.0-Beta4"
-lifecycleViewModel = "2.8.4"
+kodein = "7.22.0"
+lifecycleViewModel = "2.8.5"
 database = "1.1.1"
 assertK = "0.26.1"
 turbine = "0.7.0"
@@ -34,16 +33,14 @@ coil-mp = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
-ktor-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
-ktor-ios = { module = "io.ktor:ktor-client-ios", version.ref = "ktor" }
+ktor-android = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-ios = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 
 kotlin-date-time = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinDateTime" }
 lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycleViewModel"}
-koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
-koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
-koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
-koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinComposeMultiplatform" }
-koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koinComposeMultiplatform" }
+kodein = { module = "org.kodein.di:kodein-di", version.ref = "kodein" }
+kodein-compose = { module = "org.kodein.di:kodein-di-framework-compose", version.ref = "kodein" }
+kodein-viewmodel = { module = "org.kodein.di:kodein-di-framework-android-x-viewmodel", version.ref = "kodein" }
 
 multiplatform-db-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "database" }
 multiplatform-db-no-arg = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "database" }

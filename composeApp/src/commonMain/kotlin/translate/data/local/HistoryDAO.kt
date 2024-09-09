@@ -24,8 +24,7 @@ class HistoryDAO : HistoryDataSource {
             }
     }
 
-
-    @OptIn(ExperimentalSerializationApi::class)
+    @OptIn(ExperimentalSerializationApi::class, ExperimentalSettingsApi::class)
     override fun getHistory(): CommonFlow<List<HistoryItem>> {
         return flow<List<HistoryItem>> {
             for (i in 1..itemCount) {

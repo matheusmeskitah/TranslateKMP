@@ -6,8 +6,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.android.closestDI
 
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity(), DIAware {
+
+    override val di: DI by closestDI()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -20,5 +26,5 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun AppAndroidPreview() {
-    App()
+//    App()
 }

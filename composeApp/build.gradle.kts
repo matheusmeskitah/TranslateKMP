@@ -50,9 +50,8 @@ kotlin {
             implementation(libs.coil.mp)
             implementation(libs.coil.network.ktor)
 
-            api(libs.koin.core)
-            implementation(libs.koin.compose)
-            implementation(libs.koin.compose.viewmodel)
+            implementation(libs.kodein)
+            implementation(libs.kodein.compose)
             implementation(libs.lifecycle.viewmodel)
 
             implementation(libs.multiplatform.db.settings)
@@ -73,8 +72,7 @@ kotlin {
 
             implementation(libs.ktor.android)
 
-            implementation(libs.koin.android)
-            implementation(libs.koin.androidx.compose)
+            implementation(libs.kodein.viewmodel)
         }
     }
 }
