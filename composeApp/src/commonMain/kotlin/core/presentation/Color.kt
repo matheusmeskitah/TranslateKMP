@@ -4,19 +4,11 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
-object Colors {
-    const val LightBlue = 0xFFA8A5BB
-    const val LightBlueGrey = 0xFFF6F4F4
-    const val AccentViolet = 0xFF5643C9
-    const val TextBlack = 0xFF111111
-    const val DarkGrey = 0xFF282C31
-}
-
-val AccentViolet = Color(Colors.AccentViolet)
-val LightBlue = Color(Colors.LightBlue)
-val LightBlueGrey = Color(Colors.LightBlueGrey)
-val TextBlack = Color(Colors.TextBlack)
-val DarkGrey = Color(Colors.DarkGrey)
+val AccentViolet = Color(0xFF5643C9)
+val LightBlue = Color(0xFFA8A5BB)
+val LightBlueGrey = Color(0xFFF6F4F4)
+val TextBlack = Color(0xFF111111)
+val DarkGrey = Color(0xFF282C31)
 
 val lightColors = lightColorScheme(
     primary = AccentViolet,
