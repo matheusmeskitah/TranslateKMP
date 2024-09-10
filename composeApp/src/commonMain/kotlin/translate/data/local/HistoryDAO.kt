@@ -4,8 +4,7 @@ import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.serialization.decodeValueOrNull
 import com.russhwolf.settings.serialization.encodeValue
-import core.domain.util.CommonFlow
-import core.domain.util.toCommonFlow
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.ExperimentalSerializationApi
 import translate.domain.history.HistoryDataSource
@@ -25,13 +24,15 @@ class HistoryDAO : HistoryDataSource {
     }
 
     @OptIn(ExperimentalSerializationApi::class, ExperimentalSettingsApi::class)
-    override fun getHistory(): CommonFlow<List<HistoryItem>> {
-        return flow<List<HistoryItem>> {
+    override fun getHistory(): Flow<List<HistoryItem>> {
+        return flow {
+            if (itemCount == 0) emit(emptyList())
+
             for (i in 1..itemCount) {
                 val item = settings.decodeValueOrNull(HistoryItem.serializer(), HISTORY_ITEM + i)
-                item?.let { emit(listOf()) }
+                item?.let { emit(listOf(it)) }
             }
-        }.toCommonFlow()
+        }
     }
 
     @OptIn(ExperimentalSerializationApi::class, ExperimentalSettingsApi::class)
