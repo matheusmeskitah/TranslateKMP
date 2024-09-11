@@ -5,14 +5,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import core.presentation.TranslatorTheme
-import translate.di.rememberViewModel
-import translate.presentation.TranslateViewModel
+import core.presentation.navigation.LANGUAGE_CODE
 import core.presentation.navigation.Routes
+import translate.di.rememberViewModel
+import translate.presentation.TranslateEvent
 import translate.presentation.TranslateScreen
+import translate.presentation.TranslateViewModel
 
 @Composable
 fun App() {
@@ -32,8 +36,25 @@ fun App() {
 
                     TranslateScreen(
                         state = state,
-                        onEvent = viewModel::onEvent
+                        onEvent = { event ->
+                            when (event) {
+                                is TranslateEvent.RecordAudio -> navController.navigate(Routes.Speech.route + "/${state.fromLanguage.language.langCode}")
+                                else -> viewModel.onEvent(event)
+                            }
+                        }
                     )
+                }
+
+                composable(
+                    route = Routes.Speech.route + "/{$LANGUAGE_CODE}",
+                    arguments = listOf(
+                        navArgument(LANGUAGE_CODE) {
+                            type = NavType.StringType
+                            defaultValue = "en"
+                        }
+                    )
+                ) {
+
                 }
             }
         }
