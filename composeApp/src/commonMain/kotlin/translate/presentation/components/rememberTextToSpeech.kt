@@ -2,7 +2,7 @@ package translate.presentation.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import core.domain.translate.TextToSpeechKMP
+import core.domain.text_to_speech.TextToSpeechKMP
 import org.kodein.di.compose.localDI
 import org.kodein.di.instance
 

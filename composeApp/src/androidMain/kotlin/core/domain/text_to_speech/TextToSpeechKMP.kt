@@ -1,4 +1,4 @@
-package core.domain.translate
+package core.domain.text_to_speech
 
 import android.content.Context
 import android.speech.tts.TextToSpeech
