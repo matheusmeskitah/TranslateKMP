@@ -23,6 +23,7 @@ import org.jetbrains.compose.resources.stringResource
 import translate.presentation.components.LanguageDropDown
 import translate.presentation.components.SwapLanguagesButton
 import translate.presentation.components.TranslateTextField
+import translate.presentation.components.rememberTextToSpeech
 import translatekmp.composeapp.generated.resources.Res
 import translatekmp.composeapp.generated.resources.copied_to_clipboard
 
@@ -68,6 +69,7 @@ fun TranslateScreen(state: TranslateState, onEvent: (TranslateEvent) -> Unit) {
                 val clipboardManager = LocalClipboardManager.current
                 val keyboardController = LocalSoftwareKeyboardController.current
                 val text = stringResource(Res.string.copied_to_clipboard)
+                val tts = rememberTextToSpeech()
 
                 TranslateTextField(
                     fromText = state.fromText,
@@ -86,7 +88,8 @@ fun TranslateScreen(state: TranslateState, onEvent: (TranslateEvent) -> Unit) {
                     },
                     onCloseClick = { onEvent(TranslateEvent.CloseTranslation) },
                     onSpeakerClick = {
-//                        onEvent(TranslateEvent.RecordAudio)
+                        tts.language(state.toLanguage.language)
+                        tts.speak(state.toText ?: "")
                     },
                     onTextFieldClick = { onEvent(TranslateEvent.EditTranslation) },
                     modifier = Modifier.fillMaxWidth()

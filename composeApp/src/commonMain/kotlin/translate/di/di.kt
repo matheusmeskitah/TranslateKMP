@@ -13,7 +13,9 @@ import translate.domain.history.HistoryDataSource
 import translate.domain.use_case.TranslateUseCase
 import translate.presentation.TranslateViewModel
 
-public val mainModule: DI.Module = DI.Module("main-module") {
+expect fun DI.Builder.platformBind()
+
+val mainModule: DI.Module = DI.Module("main-module") {
 
     bindSingleton<HttpClient> {
         HttpClient {
@@ -36,4 +38,6 @@ public val mainModule: DI.Module = DI.Module("main-module") {
             historyDataSource = instance()
         )
     }
+
+    platformBind()
 }

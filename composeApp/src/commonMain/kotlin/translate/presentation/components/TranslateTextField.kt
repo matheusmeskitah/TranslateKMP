@@ -14,9 +14,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.ContentCopy
-import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -174,7 +174,7 @@ private fun TranslatedTextField(
             }
             IconButton(onClick = onSpeakerClick) {
                 Icon(
-                    imageVector = Icons.Default.Mic,
+                    imageVector = Icons.AutoMirrored.Filled.VolumeUp,
                     contentDescription = stringResource(Res.string.play_loud),
                     tint = LightBlue
                 )
