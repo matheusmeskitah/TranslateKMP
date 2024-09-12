@@ -1,4 +1,4 @@
-package translate.domain.history
+package history.domain
 
 import kotlinx.serialization.Serializable
 

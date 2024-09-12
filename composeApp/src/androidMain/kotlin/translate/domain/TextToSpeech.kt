@@ -1,11 +1,12 @@
-package core.domain.text_to_speech
+package translate.domain
 
 import android.content.Context
 import android.speech.tts.TextToSpeech
 import core.domain.language.Language
 import java.util.Locale
 
-actual class TextToSpeechKMP(
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+actual class TextToSpeech(
     private val context: Context
 ) {
     private val tts: TextToSpeech = TextToSpeech(context, null)

@@ -1,8 +1,8 @@
-package translate.domain.translate
+package translate.domain.repository
 
 import core.domain.language.Language
 
-interface TranslateClient {
+interface TranslateRepository {
     suspend fun translate(
         fromLanguage: Language,
         fromText: String,

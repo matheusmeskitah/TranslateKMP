@@ -1,4 +1,4 @@
-package translate.di
+package di
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember

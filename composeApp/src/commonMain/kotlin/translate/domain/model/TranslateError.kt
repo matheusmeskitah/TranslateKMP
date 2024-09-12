@@ -1,4 +1,4 @@
-package translate.domain.translate
+package translate.domain.model
 
 enum class TranslateError {
     SERVICE_UNAVAILABLE,

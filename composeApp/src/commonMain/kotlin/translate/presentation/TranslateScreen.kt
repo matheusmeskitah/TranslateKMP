@@ -30,10 +30,10 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
-import translate.domain.translate.TranslateError
+import translate.domain.model.TranslateError
 import translate.presentation.components.LanguageDropDown
 import translate.presentation.components.SwapLanguagesButton
-import translate.presentation.components.TranslateHistoryItem
+import history.presentation.components.TranslateHistoryItem
 import translate.presentation.components.TranslateTextField
 import translate.presentation.components.rememberTextToSpeech
 import translatekmp.composeapp.generated.resources.Res

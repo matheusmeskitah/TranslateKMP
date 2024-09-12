@@ -10,13 +10,13 @@ import io.ktor.client.request.url
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.utils.io.errors.IOException
-import translate.domain.translate.TranslateClient
-import translate.domain.translate.TranslateError
-import translate.domain.translate.TranslateException
+import translate.domain.repository.TranslateRepository
+import translate.domain.model.TranslateError
+import translate.domain.model.TranslateException
 
-class KtorTranslateClient(
+class TranslateRepositoryImpl(
     private val httpClient: HttpClient
-) : TranslateClient {
+) : TranslateRepository {
 
     override suspend fun translate(
         fromLanguage: Language,

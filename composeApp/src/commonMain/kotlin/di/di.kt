@@ -1,4 +1,4 @@
-package translate.di
+package di
 
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -7,9 +7,9 @@ import org.kodein.di.DI
 import org.kodein.di.bindProvider
 import org.kodein.di.bindSingleton
 import org.kodein.di.instance
-import translate.data.KtorTranslateClient
-import translate.data.local.HistoryDAO
-import translate.domain.history.HistoryDataSource
+import translate.data.TranslateRepositoryImpl
+import history.data.local.HistoryDAO
+import history.domain.HistoryDataSource
 import translate.domain.use_case.TranslateUseCase
 import translate.presentation.TranslateViewModel
 
@@ -32,7 +32,7 @@ val mainModule: DI.Module = DI.Module("main-module") {
     bindProvider {
         TranslateViewModel(
             translateUseCase = TranslateUseCase(
-                client = KtorTranslateClient(httpClient = instance()),
+                client = TranslateRepositoryImpl(httpClient = instance()),
                 historyDataSource = instance()
             ),
             historyDataSource = instance()

@@ -11,12 +11,10 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
-import org.jetbrains.compose.resources.stringResource
-import translate.domain.history.HistoryDataSource
-import translate.domain.translate.TranslateException
+import history.domain.HistoryDataSource
+import history.presentation.components.UiHistoryItem
+import translate.domain.model.TranslateException
 import translate.domain.use_case.TranslateUseCase
-import translatekmp.composeapp.generated.resources.Res
-import translatekmp.composeapp.generated.resources.copied_to_clipboard
 
 class TranslateViewModel(
     private val translateUseCase: TranslateUseCase,

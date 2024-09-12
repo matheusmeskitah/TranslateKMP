@@ -13,7 +13,7 @@ import androidx.navigation.navArgument
 import core.presentation.TranslatorTheme
 import core.presentation.navigation.LANGUAGE_CODE
 import core.presentation.navigation.Routes
-import translate.di.rememberViewModel
+import di.rememberViewModel
 import translate.presentation.TranslateEvent
 import translate.presentation.TranslateScreen
 import translate.presentation.TranslateViewModel

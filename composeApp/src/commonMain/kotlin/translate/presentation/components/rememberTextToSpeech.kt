@@ -2,13 +2,13 @@ package translate.presentation.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import core.domain.text_to_speech.TextToSpeechKMP
 import org.kodein.di.compose.localDI
 import org.kodein.di.instance
+import translate.domain.TextToSpeech
 
 @Composable
-fun rememberTextToSpeech(): TextToSpeechKMP = with(localDI()) {
-    val tts by instance<TextToSpeechKMP>()
+fun rememberTextToSpeech(): TextToSpeech = with(localDI()) {
+    val tts by instance<TextToSpeech>()
     DisposableEffect(key1 = tts) {
         onDispose {
             tts.stop()

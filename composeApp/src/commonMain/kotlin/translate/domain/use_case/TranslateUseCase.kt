@@ -1,13 +1,13 @@
 package translate.domain.use_case
 
 import core.domain.language.Language
-import translate.domain.history.HistoryDataSource
-import translate.domain.history.HistoryItem
-import translate.domain.translate.TranslateClient
-import translate.domain.translate.TranslateException
+import history.domain.HistoryDataSource
+import history.domain.HistoryItem
+import translate.domain.repository.TranslateRepository
+import translate.domain.model.TranslateException
 
 class TranslateUseCase(
-    private val client: TranslateClient,
+    private val client: TranslateRepository,
     private val historyDataSource: HistoryDataSource
 ) {
     suspend operator fun invoke(

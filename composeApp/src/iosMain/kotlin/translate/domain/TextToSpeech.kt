@@ -1,11 +1,11 @@
-package core.domain.text_to_speech
+package translate.domain
 
 import core.domain.language.Language
-import platform.AVFAudio.AVSpeechSynthesisVoice.Companion.voiceWithLanguage
 import platform.AVFAudio.AVSpeechSynthesizer
 import platform.AVFAudio.AVSpeechUtterance
 
-actual class TextToSpeechKMP {
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+actual class TextToSpeech {
 
     private val synthesizer = AVSpeechSynthesizer()
     private val utterance = AVSpeechUtterance()

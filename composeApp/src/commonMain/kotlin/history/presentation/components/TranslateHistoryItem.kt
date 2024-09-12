@@ -1,4 +1,4 @@
-package translate.presentation.components
+package history.presentation.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -16,10 +16,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import core.presentation.LightBlue
-import translate.presentation.UiHistoryItem
+import translate.presentation.components.SmallLanguageIcon
+import translate.presentation.components.gradientSurface
 
 @Composable
 fun TranslateHistoryItem(

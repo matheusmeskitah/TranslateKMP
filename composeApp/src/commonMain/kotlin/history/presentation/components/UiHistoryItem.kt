@@ -1,4 +1,4 @@
-package translate.presentation
+package history.presentation.components
 
 import core.presentation.UiLanguage
 

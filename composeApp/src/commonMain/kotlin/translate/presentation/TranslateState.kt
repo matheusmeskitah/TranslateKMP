@@ -1,7 +1,8 @@
 package translate.presentation
 
 import core.presentation.UiLanguage
-import translate.domain.translate.TranslateError
+import history.presentation.components.UiHistoryItem
+import translate.domain.model.TranslateError
 
 data class TranslateState(
     val fromText: String = "",

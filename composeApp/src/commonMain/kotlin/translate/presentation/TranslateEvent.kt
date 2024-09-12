@@ -1,6 +1,7 @@
 package translate.presentation
 
 import core.presentation.UiLanguage
+import history.presentation.components.UiHistoryItem
 
 sealed class TranslateEvent {
     data object CloseTranslation : TranslateEvent()
