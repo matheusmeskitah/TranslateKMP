@@ -1,14 +1,14 @@
-package translate.data.local
+package history.data.local
 
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.serialization.decodeValueOrNull
 import com.russhwolf.settings.serialization.encodeValue
+import history.domain.HistoryDataSource
+import history.domain.HistoryItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.ExperimentalSerializationApi
-import translate.domain.history.HistoryDataSource
-import translate.domain.history.HistoryItem
 
 class HistoryDAO : HistoryDataSource {
 
@@ -28,10 +28,12 @@ class HistoryDAO : HistoryDataSource {
         return flow {
             if (itemCount == 0) emit(emptyList())
 
+            val history = mutableListOf<HistoryItem>()
             for (i in 1..itemCount) {
                 val item = settings.decodeValueOrNull(HistoryItem.serializer(), HISTORY_ITEM + i)
-                item?.let { emit(listOf(it)) }
+                item?.let { history.add(it) }
             }
+            emit(history)
         }
     }
 
