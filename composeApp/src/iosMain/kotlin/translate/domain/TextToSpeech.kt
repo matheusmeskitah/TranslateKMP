@@ -1,6 +1,7 @@
 package translate.domain
 
 import core.domain.language.Language
+import platform.AVFAudio.AVSpeechSynthesisVoice
 import platform.AVFAudio.AVSpeechSynthesizer
 import platform.AVFAudio.AVSpeechUtterance
 
@@ -11,7 +12,7 @@ actual class TextToSpeech {
     private val utterance = AVSpeechUtterance()
 
     actual fun language(language: Language) {
-        utterance.voice = voiceWithLanguage(language.langCode)
+        utterance.voice = AVSpeechSynthesisVoice.voiceWithLanguage(language.langCode)
         utterance.volume = 1F
     }
 
