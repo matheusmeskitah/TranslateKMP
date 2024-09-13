@@ -14,8 +14,15 @@ class MainActivity : ComponentActivity(), DIAware {
 
     override val di: DI by closestDI()
 
+    companion object {
+        lateinit var instance: ComponentActivity
+            private set
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        instance = this
 
         setContent {
             App()
