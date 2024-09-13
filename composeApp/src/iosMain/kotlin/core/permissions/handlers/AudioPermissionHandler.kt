@@ -13,6 +13,7 @@ import platform.AVFoundation.authorizationStatusForMediaType
 internal class AudioPermissionHandler : IndividualPermissionsHandler {
 
     override val permissionName: PermissionName = PermissionName.AUDIO
+
     override fun requestPermission(
         onResult: OnRequestPermissionResult
     ) {
