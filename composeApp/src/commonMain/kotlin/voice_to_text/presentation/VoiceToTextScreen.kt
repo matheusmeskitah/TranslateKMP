@@ -60,6 +60,12 @@ fun VoiceToTextScreen(
         if (permission != PermissionStatus.GRANTED)
             permissionHandler.requestPermission(PermissionName.AUDIO) {
                 permission = it
+                onEvent(
+                    VoiceToTextEvent.PermissionResult(
+                        isGranted = it == PermissionStatus.GRANTED,
+                        isPermanentlyDeclined = it == PermissionStatus.DENIED
+                    )
+                )
             }
     }
 

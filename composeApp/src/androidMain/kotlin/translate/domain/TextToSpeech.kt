@@ -35,7 +35,9 @@ actual class TextToSpeech(val context: Context) {
     }
 
     actual fun stop() {
-        tts.stop()
-        tts.shutdown()
+        if (this::tts.isInitialized) {
+            tts.stop()
+            tts.shutdown()
+        }
     }
 }
