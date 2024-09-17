@@ -10,9 +10,9 @@ import io.ktor.client.request.url
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.utils.io.errors.IOException
-import translate.domain.repository.TranslateRepository
 import translate.domain.model.TranslateError
 import translate.domain.model.TranslateException
+import translate.domain.repository.TranslateRepository
 
 class TranslateRepositoryImpl(
     private val httpClient: HttpClient
@@ -41,7 +41,7 @@ class TranslateRepositoryImpl(
 
         when (result.status.value) {
             in 200..299 -> Unit
-            500 -> throw TranslateException(TranslateError.SERVER_ERROR)
+            in 500..599 -> throw TranslateException(TranslateError.SERVER_ERROR)
             in 400..499 -> throw TranslateException(TranslateError.CLIENT_ERROR)
             else -> throw TranslateException(TranslateError.UNKNOWN_ERROR)
         }
