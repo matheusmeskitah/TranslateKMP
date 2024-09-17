@@ -1,17 +1,15 @@
 [versions]
 agp = "8.5.2"
-kotlin = "2.0.0"
-ksp = "2.0.0-1.0.23"
+kotlin = "2.0.20"
 junit = "4.13.2"
-android-compileSdk = "34"
+android-compileSdk = "35"
 android-minSdk = "24"
-android-targetSdk = "34"
+android-targetSdk = "35"
 androidx-activityCompose = "1.9.2"
 androidx-espresso-core = "3.6.1"
 androidx-test-junit = "1.2.1"
 testRunner = "1.6.2"
 ktor = "3.0.0-wasm2"
-ktor-coroutines = "2.0.0"
 compose-plugin = "1.6.11"
 coil = "3.0.0-alpha06"
 navigationCompose = "2.7.0-alpha07"
@@ -62,7 +60,6 @@ turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
