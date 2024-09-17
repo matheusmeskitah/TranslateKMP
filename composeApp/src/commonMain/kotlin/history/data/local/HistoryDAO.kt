@@ -33,7 +33,7 @@ class HistoryDAO : HistoryDataSource {
                 val item = settings.decodeValueOrNull(HistoryItem.serializer(), HISTORY_ITEM + i)
                 item?.let { history.add(it) }
             }
-            emit(history)
+            emit(history.reversed())
         }
     }
 
