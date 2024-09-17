@@ -2,7 +2,7 @@ package translate.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import core.presentation.UiLanguage
+import history.domain.HistoryDataSource
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -11,8 +11,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
-import history.domain.HistoryDataSource
-import history.presentation.components.UiHistoryItem
+import translate.data.mapper.toUiHistoryItem
 import translate.domain.model.TranslateException
 import translate.domain.use_case.TranslateUseCase
 
@@ -26,18 +25,9 @@ class TranslateViewModel(
         _state,
         historyDataSource.getHistory()
     ) { state, history ->
-        if (state.history != history) {
-            state.copy(
-                history = history.map { item ->
-                    UiHistoryItem(
-                        fromText = item.fromText,
-                        toText = item.toText,
-                        fromLanguage = UiLanguage.byCode(item.fromLanguageCode),
-                        toLanguage = UiLanguage.byCode(item.toLanguageCode)
-                    )
-                }
-            )
-        } else state
+        if (state.history != history)
+            state.copy(history = history.map { it.toUiHistoryItem() })
+        else state
     }.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
@@ -187,6 +177,12 @@ class TranslateViewModel(
                         isTranslating = false,
                         toText = result
                     )
+                }
+
+                historyDataSource.getHistory().collect { history ->
+                    _state.update {
+                        it.copy(history = history.map { item -> item.toUiHistoryItem() })
+                    }
                 }
             }.onFailure { error ->
                 _state.update {
