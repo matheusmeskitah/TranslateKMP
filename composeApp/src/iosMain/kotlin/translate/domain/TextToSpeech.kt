@@ -8,8 +8,14 @@ import platform.AVFAudio.AVSpeechUtterance
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class TextToSpeech {
 
-    private val synthesizer = AVSpeechSynthesizer()
-    private val utterance = AVSpeechUtterance()
+    private lateinit var synthesizer: AVSpeechSynthesizer
+    private lateinit var utterance: AVSpeechUtterance
+
+    actual fun create(isInit: (Boolean) -> Unit) {
+        synthesizer = AVSpeechSynthesizer()
+        utterance = AVSpeechUtterance()
+        isInit(true)
+    }
 
     actual fun language(language: Language) {
         utterance.voice = AVSpeechSynthesisVoice.voiceWithLanguage(language.langCode)

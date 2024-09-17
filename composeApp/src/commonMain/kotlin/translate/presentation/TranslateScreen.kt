@@ -28,12 +28,12 @@ import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
+import history.presentation.components.TranslateHistoryItem
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import translate.domain.model.TranslateError
 import translate.presentation.components.LanguageDropDown
 import translate.presentation.components.SwapLanguagesButton
-import history.presentation.components.TranslateHistoryItem
 import translate.presentation.components.TranslateTextField
 import translate.presentation.components.rememberTextToSpeech
 import translatekmp.composeapp.generated.resources.Res
@@ -142,8 +142,12 @@ fun TranslateScreen(state: TranslateState, onEvent: (TranslateEvent) -> Unit) {
                     },
                     onCloseClick = { onEvent(TranslateEvent.CloseTranslation) },
                     onSpeakerClick = {
-                        tts.language(state.toLanguage.language)
-                        tts.speak(state.toText ?: "")
+                        tts.create {
+                            if (it) {
+                                tts.language(state.toLanguage.language)
+                                tts.speak(state.toText ?: "")
+                            }
+                        }
                     },
                     onTextFieldClick = { onEvent(TranslateEvent.EditTranslation) },
                     modifier = Modifier.fillMaxWidth()
@@ -165,7 +169,6 @@ fun TranslateScreen(state: TranslateState, onEvent: (TranslateEvent) -> Unit) {
                     onClick = {
                         onEvent(TranslateEvent.SelectHistoryItem(item))
                     },
-//                    modifier = Modifier.fillMaxWidth()
                 )
             }
         }

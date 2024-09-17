@@ -6,10 +6,14 @@ import core.domain.language.Language
 import java.util.Locale
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-actual class TextToSpeech(
-    private val context: Context
-) {
-    private val tts: TextToSpeech = TextToSpeech(context, null)
+actual class TextToSpeech(val context: Context) {
+    private lateinit var tts: TextToSpeech
+
+    actual fun create(isInit: (Boolean) -> Unit) {
+        tts = TextToSpeech(context) {
+            isInit(it == TextToSpeech.SUCCESS)
+        }
+    }
 
     actual fun language(language: Language) {
         val locale = when (language) {
