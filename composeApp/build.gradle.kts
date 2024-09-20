@@ -59,6 +59,13 @@ kotlin {
             implementation(libs.multiplatform.db.coroutines)
 
             implementation(libs.kotlin.date.time)
+
+            //Tests
+            implementation(libs.junit)
+            implementation(libs.kotlin.test)
+            implementation(libs.coroutine.test)
+            implementation(libs.assertk)
+            implementation(libs.turbine)
         }
 
         iosMain.dependencies {
@@ -72,6 +79,9 @@ kotlin {
             implementation(libs.ktor.android)
 
             implementation(libs.kodein.viewmodel)
+
+            //Tests
+            implementation(libs.kotlin.test.junit)
         }
     }
 }

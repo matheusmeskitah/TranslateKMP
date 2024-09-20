@@ -4,10 +4,8 @@ import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.serialization.decodeValueOrNull
 import com.russhwolf.settings.serialization.encodeValue
-import history.domain.local.HistoryDAO
 import history.domain.entity.HistoryItemEntity
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import history.domain.local.HistoryDAO
 import kotlinx.serialization.ExperimentalSerializationApi
 
 class HistoryDAOImpl : HistoryDAO {
@@ -24,21 +22,20 @@ class HistoryDAOImpl : HistoryDAO {
     }
 
     @OptIn(ExperimentalSerializationApi::class, ExperimentalSettingsApi::class)
-    override fun getHistory(): Flow<List<HistoryItemEntity>> {
-        return flow {
-            if (itemCount == 0) emit(emptyList())
+    override fun getHistory(): List<HistoryItemEntity> {
+        if (itemCount == 0)
+            return emptyList()
 
-            val history = mutableListOf<HistoryItemEntity>()
-            for (i in 1..itemCount) {
-                val item = settings.decodeValueOrNull(HistoryItemEntity.serializer(), HISTORY_ITEM + i)
-                item?.let { history.add(it) }
-            }
-            emit(history.reversed())
+        val history = mutableListOf<HistoryItemEntity>()
+        for (i in 1..itemCount) {
+            val item = settings.decodeValueOrNull(HistoryItemEntity.serializer(), HISTORY_ITEM + i)
+            item?.let { history.add(it) }
         }
+        return history.reversed()
     }
 
     @OptIn(ExperimentalSerializationApi::class, ExperimentalSettingsApi::class)
-    override suspend fun insertHistoryItem(item: HistoryItemEntity): Boolean {
+    override fun insertHistoryItem(item: HistoryItemEntity): Boolean {
         return try {
             settings.putInt(HISTORY_ITEM_COUNT, itemCount + 1)
 

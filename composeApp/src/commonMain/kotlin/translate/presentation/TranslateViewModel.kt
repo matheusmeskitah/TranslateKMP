@@ -6,7 +6,6 @@ import history.domain.use_case.GetHistoryUseCase
 import history.domain.use_case.SaveLocallyUseCase
 import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.WhileSubscribed

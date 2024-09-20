@@ -4,6 +4,6 @@ import history.domain.entity.HistoryItemEntity
 import kotlinx.coroutines.flow.Flow
 
 interface HistoryDAO {
-    fun getHistory(): Flow<List<HistoryItemEntity>>
-    suspend fun insertHistoryItem(item: HistoryItemEntity): Boolean
+    fun getHistory(): List<HistoryItemEntity>
+    fun insertHistoryItem(item: HistoryItemEntity): Boolean
 }
