@@ -1,7 +1,9 @@
 package di
 
-import history.data.local.HistoryDAO
-import history.domain.HistoryDataSource
+import history.data.local.HistoryDAOImpl
+import history.domain.local.HistoryDAO
+import history.domain.use_case.GetHistoryUseCase
+import history.domain.use_case.SaveLocallyUseCase
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
@@ -26,17 +28,17 @@ val mainModule: DI.Module = DI.Module("main-module") {
         }
     }
 
-    bindSingleton<HistoryDataSource> {
-        HistoryDAO()
+    bindSingleton<HistoryDAO> {
+        HistoryDAOImpl()
     }
 
     bindProvider {
         TranslateViewModel(
             translateUseCase = TranslateUseCase(
-                client = TranslateRepositoryImpl(httpClient = instance()),
-                historyDataSource = instance()
+                repository = TranslateRepositoryImpl(httpClient = instance())
             ),
-            historyDataSource = instance()
+            saveLocallyUseCase = SaveLocallyUseCase(dao = instance()),
+            getHistoryUseCase = GetHistoryUseCase(dao = instance())
         )
     }
 

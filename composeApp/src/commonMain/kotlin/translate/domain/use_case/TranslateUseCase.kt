@@ -1,14 +1,11 @@
 package translate.domain.use_case
 
 import core.domain.language.Language
-import history.domain.HistoryDataSource
-import history.domain.HistoryItem
-import translate.domain.repository.TranslateRepository
 import translate.domain.model.TranslateException
+import translate.domain.repository.TranslateRepository
 
 class TranslateUseCase(
-    private val client: TranslateRepository,
-    private val historyDataSource: HistoryDataSource
+    private val repository: TranslateRepository
 ) {
     suspend operator fun invoke(
         fromLanguage: Language,
@@ -16,16 +13,7 @@ class TranslateUseCase(
         toLanguage: Language
     ): Result<String> {
         return try {
-            val translatedText = client.translate(fromLanguage, fromText, toLanguage)
-
-            historyDataSource.insertHistoryItem(
-                HistoryItem(
-                    fromLanguageCode = fromLanguage.langCode,
-                    fromText = fromText,
-                    toLanguageCode = toLanguage.langCode,
-                    toText = translatedText,
-                )
-            )
+            val translatedText = repository.translate(fromLanguage, fromText, toLanguage)
 
             Result.success(translatedText)
         } catch (e: TranslateException) {

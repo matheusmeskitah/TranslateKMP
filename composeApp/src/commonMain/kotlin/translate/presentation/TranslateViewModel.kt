@@ -2,49 +2,43 @@ package translate.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import history.domain.HistoryDataSource
+import history.domain.use_case.GetHistoryUseCase
+import history.domain.use_case.SaveLocallyUseCase
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.WhileSubscribed
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
-import translate.data.mapper.toUiHistoryItem
 import translate.domain.model.TranslateException
 import translate.domain.use_case.TranslateUseCase
 
 class TranslateViewModel(
     private val translateUseCase: TranslateUseCase,
-    private val historyDataSource: HistoryDataSource
+    private val saveLocallyUseCase: SaveLocallyUseCase,
+    private val getHistoryUseCase: GetHistoryUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(TranslateState())
-    val state = combine(
-        _state,
-        historyDataSource.getHistory()
-    ) { state, history ->
-        if (state.history != history)
-            state.copy(history = history.map { it.toUiHistoryItem() })
-        else state
-    }.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000),
-        TranslateState()
-    )
+    val state = _state
+        .onStart {
+            loadHistory()
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5.seconds),
+            initialValue = TranslateState()
+        )
 
     private var translateJob: Job? = null
 
     fun onEvent(event: TranslateEvent) {
         when (event) {
-            is TranslateEvent.ChangeTranslationText -> {
-                _state.update {
-                    it.copy(
-                        fromText = event.text
-                    )
-                }
-            }
+            is TranslateEvent.ChangeTranslationText -> _state.update { it.copy(fromText = event.text) }
 
             is TranslateEvent.ChooseFromLanguage -> {
                 _state.update {
@@ -160,12 +154,8 @@ class TranslateViewModel(
             return
         }
 
-        translateJob = viewModelScope.launch {
-            _state.update {
-                it.copy(
-                    isTranslating = true
-                )
-            }
+        viewModelScope.launch {
+            _state.update { it.copy(isTranslating = true) }
 
             translateUseCase(
                 fromLanguage = state.fromLanguage.language,
@@ -179,11 +169,7 @@ class TranslateViewModel(
                     )
                 }
 
-                historyDataSource.getHistory().collect { history ->
-                    _state.update {
-                        it.copy(history = history.map { item -> item.toUiHistoryItem() })
-                    }
-                }
+                saveHistoryItem()
             }.onFailure { error ->
                 _state.update {
                     it.copy(
@@ -194,4 +180,47 @@ class TranslateViewModel(
             }
         }
     }
+
+    private fun saveHistoryItem() {
+        viewModelScope.launch {
+            _state.update { it.copy(isLoadingHistory = true) }
+
+            saveLocallyUseCase(
+                fromLanguageCode = state.value.fromLanguage.language.langCode,
+                fromText = state.value.fromText,
+                toLanguageCode = state.value.toLanguage.language.langCode,
+                translatedText = state.value.toText ?: ""
+            ).onSuccess {
+                loadHistory()
+            }.onFailure { error ->
+                _state.update {
+                    it.copy(
+                        isLoadingHistory = false,
+                        error = (error as? TranslateException)?.error
+                    )
+                }
+            }
+        }
+    }
+
+    private fun loadHistory() {
+        viewModelScope.launch {
+            _state.update { it.copy(isLoadingHistory = true) }
+
+            delay(5.seconds)
+
+            getHistoryUseCase()
+                .onSuccess { history ->
+                    _state.update { it.copy(history = history, isLoadingHistory = false) }
+                }.onFailure { error ->
+                    _state.update {
+                        it.copy(
+                            isLoadingHistory = false,
+                            error = (error as? TranslateException)?.error
+                        )
+                    }
+                }
+        }
+    }
+
 }

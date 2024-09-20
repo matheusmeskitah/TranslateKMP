@@ -32,7 +32,7 @@ import translatekmp.composeapp.generated.resources.swedish
 import translatekmp.composeapp.generated.resources.turkish
 import translatekmp.composeapp.generated.resources.ukrainian
 
-class UiLanguage(
+data class UiLanguage(
     val drawableRes: DrawableResource,
     val language: Language
 ) {

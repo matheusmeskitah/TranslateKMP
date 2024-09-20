@@ -4,13 +4,13 @@ import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.serialization.decodeValueOrNull
 import com.russhwolf.settings.serialization.encodeValue
-import history.domain.HistoryDataSource
-import history.domain.HistoryItem
+import history.domain.local.HistoryDAO
+import history.domain.entity.HistoryItemEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.ExperimentalSerializationApi
 
-class HistoryDAO : HistoryDataSource {
+class HistoryDAOImpl : HistoryDAO {
 
     companion object {
         const val HISTORY_ITEM_COUNT = "history_item_count"
@@ -24,13 +24,13 @@ class HistoryDAO : HistoryDataSource {
     }
 
     @OptIn(ExperimentalSerializationApi::class, ExperimentalSettingsApi::class)
-    override fun getHistory(): Flow<List<HistoryItem>> {
+    override fun getHistory(): Flow<List<HistoryItemEntity>> {
         return flow {
             if (itemCount == 0) emit(emptyList())
 
-            val history = mutableListOf<HistoryItem>()
+            val history = mutableListOf<HistoryItemEntity>()
             for (i in 1..itemCount) {
-                val item = settings.decodeValueOrNull(HistoryItem.serializer(), HISTORY_ITEM + i)
+                val item = settings.decodeValueOrNull(HistoryItemEntity.serializer(), HISTORY_ITEM + i)
                 item?.let { history.add(it) }
             }
             emit(history.reversed())
@@ -38,9 +38,15 @@ class HistoryDAO : HistoryDataSource {
     }
 
     @OptIn(ExperimentalSerializationApi::class, ExperimentalSettingsApi::class)
-    override suspend fun insertHistoryItem(item: HistoryItem) {
-        settings.putInt(HISTORY_ITEM_COUNT, itemCount + 1)
+    override suspend fun insertHistoryItem(item: HistoryItemEntity): Boolean {
+        return try {
+            settings.putInt(HISTORY_ITEM_COUNT, itemCount + 1)
 
-        settings.encodeValue(HistoryItem.serializer(), HISTORY_ITEM + itemCount, item)
+            settings.encodeValue(HistoryItemEntity.serializer(), HISTORY_ITEM + itemCount, item)
+
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
 }

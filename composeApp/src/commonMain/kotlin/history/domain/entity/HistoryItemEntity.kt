@@ -1,9 +1,9 @@
-package history.domain
+package history.domain.entity
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class HistoryItem(
+data class HistoryItemEntity(
     val fromLanguageCode: String,
     val fromText: String,
     val toLanguageCode: String,
