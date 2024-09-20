@@ -207,8 +207,6 @@ class TranslateViewModel(
         viewModelScope.launch {
             _state.update { it.copy(isLoadingHistory = true) }
 
-            delay(5.seconds)
-
             getHistoryUseCase()
                 .onSuccess { history ->
                     _state.update { it.copy(history = history, isLoadingHistory = false) }
@@ -222,5 +220,4 @@ class TranslateViewModel(
                 }
         }
     }
-
 }
