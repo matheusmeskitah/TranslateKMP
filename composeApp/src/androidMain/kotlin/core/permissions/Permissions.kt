@@ -13,8 +13,8 @@ public actual class Permissions {
         onResult: OnRequestPermissionResult
     ) {
         val register = MainActivity.instance.activityResultRegistry.register(
-            key = "AndroidPermissionKey",
-            contract = ActivityResultContracts.RequestPermission()
+            "AndroidPermissionKey",
+            ActivityResultContracts.RequestPermission()
         ) { isGranted ->
             onResult.invoke(if (isGranted) PermissionStatus.GRANTED else PermissionStatus.DENIED)
         }

@@ -1,21 +1,20 @@
 [versions]
-agp = "8.6.1"
+agp = "8.7.2"
 kotlin = "2.0.20"
 junit = "4.13.2"
 android-compileSdk = "35"
 android-minSdk = "24"
 android-targetSdk = "35"
-androidx-activityCompose = "1.9.2"
 androidx-espresso-core = "3.6.1"
 androidx-test-junit = "1.2.1"
 testRunner = "1.6.2"
 ktor = "3.0.0-wasm2"
-compose-plugin = "1.7.0-beta02"
+compose-plugin = "1.7.0"
 coil = "3.0.0-alpha06"
 navigationCompose = "2.7.0-alpha07"
 kotlinDateTime = "0.6.0"
 kodein = "7.22.0"
-lifecycleViewModel = "2.8.6"
+lifecycleViewModel = "2.8.7"
 database = "1.1.1"
 assertK = "0.28.1"
 turbine = "1.1.0"
@@ -23,7 +22,6 @@ rules = "1.6.1"
 coroutineTest = "1.9.0"
 
 [libraries]
-androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-compose-core = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil" }
